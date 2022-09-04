@@ -18,7 +18,7 @@ You first need to create a Spotify Application.
 
 # Setup connection to Spotify
 
-To setup Spotify connection, you need to run the image in "setup mode" using this commandline and follow instruction: 
+To setup Spotify connection, you need to run the image in "setup mode" using this commandline and follow instruction:  
 `docker run -it --rm -v spotifybackup:/data --entrypoint pwsh spotifybackup:latest setup.ps1`
 
 ## E.g:  
@@ -31,11 +31,11 @@ Copy the redirected url from the address bar:
 Paste it into the setup container window (you should then receive a green result):  
 ![setup5.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup5.png) 
 
-Resulting connection information are then stored into the spotifybackup docker volume
+**Resulting connection information are then stored into the `spotifybackup` docker volume**
 
 # Run spotifybackup
 
-Run
+Run  
 `docker run -d --name spotifybackup -v spotifybackup:/data spotifybackup:latest`
 
 ## E.g.
