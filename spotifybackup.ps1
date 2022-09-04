@@ -15,23 +15,19 @@ Write-Log "===== spotifybackup v$VersionNumber ====="
 $BackupHour = $env:BACKUPHOUR ?? 2
 $BackupRetention = $env:BACKUPRETENTION ?? 30
 $BackupPrefix = $env:BACKUPPREFIX ?? 'SpotifyBackup'
-$SpotifyClientId = $env:SPOTIFY_CLIENTID
-$SpotifyClientSecret = $env:SPOTIFY_CLIENTSECRET
 
-if (-not $SpotifyClientId -or -not $SpotifyClientSecret) {
-    Write-Log 'You need to provide SPOTIFY_CLIENTID and SPOTIFY_CLIENTSECRET environnement variables'
+
+# Verify Spotify Application
+try {
+    $spotApp = Get-SpotifyApplication
+}
+catch {
+    Write-Log 'Spotify Application is not set. Please run this configuration command line first : '
+    Write-Log '    docker run -it --rm -v spotifybackup:/data --entrypoint pwsh spotifybackup:latest setup.ps1'
     Write-Log 'Exiting...'
     Exit
 }
 
-# Initialize Spotify Application
-$spotApp = Get-SpotifyApplication
-if ($null -eq $spotApp) {
-    New-SpotifyApplication -ClientId $SpotifyClientId -ClientSecret $SpotifyClientSecret
-}
-elseif ($spotApp.ClientId -ne $SpotifyClientId -or $spotApp.ClientSecret -ne $SpotifyClientSecret) {
-    Set-SpotifyApplication -ClientId $SpotifyClientId -ClientSecret $SpotifyClientSecret
-}
 Initialize-SpotifyApplication
 
 $nextBackupTime = (Get-Date).Date.AddHours($BackupHour)
