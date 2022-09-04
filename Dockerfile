@@ -7,5 +7,6 @@ COPY spotifybackup.ps1 .
 
 ENV SPOTISHELL_STORE_PATH=/data
 ENV BACKUP_STORE_PATH=/data
+VOLUME ["/data"]
 
 ENTRYPOINT ["pwsh", "spotifybackup.ps1"]
