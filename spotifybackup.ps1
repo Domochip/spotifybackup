@@ -1,12 +1,12 @@
 Import-Module Spotishell
 
-$VersionNumber = '0.9.0'
+$VersionNumber = '0.9.8'
 
 function Write-Log {
     param (
         $Message
     )
-    Write-Host "$(Get-Date -AsUTC -UFormat '%F-%T') : $Message"
+    Write-Host "$(Get-Date -UFormat '%F-%T') : $Message"
 }
 
 Write-Log "===== spotifybackup v$VersionNumber ====="
@@ -34,26 +34,39 @@ elseif ($spotApp.ClientId -ne $SpotifyClientId -or $spotApp.ClientSecret -ne $Sp
 }
 Initialize-SpotifyApplication
 
+$nextBackupTime = (Get-Date).Date.AddHours($BackupHour)
+if ($nextBackupTime -le (Get-Date)) { $nextBackupTime = $nextBackupTime.AddDays(1) }
+Write-Log ('Now waiting for the next backup time => ' + ($nextBackupTime | Get-Date -UFormat '%F %T'))
+
+$lastBackupTime = Get-Date
 
 while ($true) {
 
-    Write-Log 'Backup Time'
-    $backupFileName = "$BackupPrefix-$(Get-Date -AsUTC -UFormat '%F-%H-%M').json"
-    Backup-Library -Path "$env:BACKUP_STORE_PATH/$backupFileName"
-    Write-Log "Library backed up to file '$backupFileName'"
+    $now = Get-Date
+    $todayBackupHour = (Get-Date).Date.AddHours($BackupHour)
 
-    Write-Log 'Cleanup'
-    $backupFiles = Get-ChildItem -Path $env:BACKUP_STORE_PATH -Filter "$BackupPrefix-*" | Sort-Object -Property Name
-    if ($backupFiles.Count -gt $BackupRetention) {
-        foreach ($file in $backupFiles[0..$($backupFiles.Count - $BackupRetention - 1)]) {
-            Remove-Item $file
-            Write-Log "$($file.Name) removed"
+    # if today backup hour is between $lastBackupTime and $now, then backup
+
+    if ($lastBackupTime -lt $todayBackupHour -and $todayBackupHour -le $now) {
+
+        Write-Log 'Backup Time'
+        $backupFileName = "$BackupPrefix-$(Get-Date -AsUTC -UFormat '%F-%H-%M').json"
+        Backup-Library -Path "$env:BACKUP_STORE_PATH/$backupFileName"
+        Write-Log "Library backed up to file '$backupFileName'"
+
+        Write-Log 'Cleanup'
+        $backupFiles = Get-ChildItem -Path $env:BACKUP_STORE_PATH -Filter "$BackupPrefix-*" | Sort-Object -Property Name
+        if ($backupFiles.Count -gt $BackupRetention) {
+            foreach ($file in $backupFiles[0..$($backupFiles.Count - $BackupRetention - 1)]) {
+                Remove-Item $file
+                Write-Log "$($file.Name) removed"
+            }
         }
+        else { Write-Log 'No backup file over retention to remove' }
+
+        Write-Log 'Backup process finished'
     }
-    else { Write-Log 'No backup file over retention to remove' }
 
-    Write-Log 'Backup process finished'
-
-    # Wait 60 second
-    Start-Sleep -Seconds 60
+    # Wait 1 second
+    Start-Sleep -Seconds 1
 }
