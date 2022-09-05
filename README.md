@@ -8,11 +8,11 @@ This full backup can be used to be restored over your account or another one.
 You first need to create a Spotify Application.
 
 **Step1**: Go to the [Spotify for Developers](https://developer.spotify.com/dashboard/applications) Dashboard, log in and create an app  
-![step1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.png) ![step2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.png)  
-**Step3**: Edit settings of the app and add `http://localhost:8080/spotishell` to Redirect URIs  
-![step3.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.2.png) ![step3.3.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.3.png)  
-**Step4**: Collect Client ID and Secret  
-![step4.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step4.1.png) ![step4.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step4.2.png)  
+![step1.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.1.png) ![step1.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.2.png)  
+**Step2**: Edit settings of the app and add `http://localhost:8080/spotishell` to Redirect URIs  
+![step2.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.1.png) ![step2.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.2.png)  
+**Step3**: Collect Client ID and Secret  
+![step4.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step4.2.png)  
 
 # Setup connection to Spotify
 
@@ -33,8 +33,41 @@ Paste it into the setup container window (you should then receive a green result
 
 # Run spotifybackup
 
-Run  
-`docker run -d --name spotifybackup -v spotifybackup:/data domochip/spotifybackup`
+Docker Quick-Run  
+```bash
+docker run \
+    -d \
+    --name spotifybackup \
+    -e BACKUPHOUR=2 \
+    -e BACKUPRETENTION=30 \
+    -e BACKUPPREFIX=SpotifyBackup \
+    -v spotifybackup:/data \
+    domochip/spotifybackup
+```
+
+Docker-Compose Quick-Run  
+```yaml
+version: '3'
+volumes:
+  spotifybackup:
+services:
+  spotifybackup:
+    container_name: spotifybackup
+    image: domochip/spotifybackup
+    volumes:
+      - spotifybackup:/data
+    environment:
+      - BACKUPHOUR=2
+      - BACKUPRETENTION=30
+      - BACKUPPREFIX=SpotifyBackup
+```
+(Backup your library everyday at 2:00PM)
+
+#### Environment variables
+* `BACKUPHOUR`: **Optional**, (Integer: 0 to 23) hour of publish everyday
+* `BACKUPRETENTION`: **Optional**, (Positive Integer) Number of backup files to retain. Older files over this number are deleted
+* `BACKUPPREFIX`: **Optional**, (String) First part of the backup file names
+
 
 ## E.g.
 
