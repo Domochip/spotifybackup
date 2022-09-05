@@ -7,12 +7,10 @@ This full backup can be used to be restored over your account or another one.
 
 You first need to create a Spotify Application.
 
-**Step1**: Go to the [Spotify for Developers](https://developer.spotify.com/dashboard/applications) Dashboard  
-![step1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.png)  
-**Step2**: Log in and create an app  
-![step2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.png)  
+**Step1**: Go to the [Spotify for Developers](https://developer.spotify.com/dashboard/applications) Dashboard, log in and create an app  
+![step1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.png) ![step2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.png)  
 **Step3**: Edit settings of the app and add `http://localhost:8080/spotishell` to Redirect URIs  
-![step3.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.png) ![step3.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.1.png) ![step3.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.2.png) ![step3.3.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.3.png)  
+![step3.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.2.png) ![step3.3.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.3.png)  
 **Step4**: Collect Client ID and Secret  
 ![step4.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step4.1.png) ![step4.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step4.2.png)  
 
@@ -25,7 +23,7 @@ To setup Spotify connection, you need to run the image in "setup mode" using thi
 Provide Client ID and Client Secret then copy authorization URL:  
 ![setup1.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup1.png)  
 Paste authorization URL in your browser, read then accept:  
-![setup2.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup2.png) ![setup3.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup3.png)  
+![setup2.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup2.png)  
 Copy the redirected url from the address bar:  
 ![setup4.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup4.png)  
 Paste it into the setup container window (you should then receive a green result):  
