@@ -1,6 +1,6 @@
 Import-Module Spotishell
 
-$VersionNumber = '0.9.8'
+$VersionNumber = '0.9.9'
 
 function Write-Log {
     param (
@@ -39,11 +39,11 @@ $lastBackupTime = Get-Date
 while ($true) {
 
     $now = Get-Date
-    $todayBackupHour = (Get-Date).Date.AddHours($BackupHour)
+    $todayBackupTime = (Get-Date).Date.AddHours($BackupHour)
 
-    # if today backup hour is between $lastBackupTime and $now, then backup
+    # if today backup time is between $lastBackupTime and $now, then backup
 
-    if ($lastBackupTime -lt $todayBackupHour -and $todayBackupHour -le $now) {
+    if ($lastBackupTime -lt $todayBackupTime -and $todayBackupTime -le $now) {
 
         Write-Log 'Backup Time'
         $backupFileName = "$BackupPrefix-$(Get-Date -AsUTC -UFormat '%F-%H-%M').json"
@@ -59,6 +59,9 @@ while ($true) {
             }
         }
         else { Write-Log 'No backup file over retention to remove' }
+
+        # Update last backup time
+        $lastBackupTime = $todayBackupTime
 
         Write-Log 'Backup process finished'
     }
