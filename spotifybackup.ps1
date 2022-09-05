@@ -19,7 +19,7 @@ $BackupPrefix = $env:BACKUPPREFIX ?? 'SpotifyBackup'
 
 # Verify Spotify Application
 try {
-    $spotApp = Get-SpotifyApplication
+    Get-SpotifyApplication | Out-Null
 }
 catch {
     Write-Log 'Spotify Application is not set. Please run this configuration command line first : '
