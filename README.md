@@ -12,22 +12,22 @@ You first need to create a Spotify Application.
 **Step2**: Edit settings of the app and add `http://localhost:8080/spotishell` to Redirect URIs  
 ![step2.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.1.png) ![step2.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.2.png)  
 **Step3**: Collect Client ID and Secret  
-![step4.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step4.2.png)  
+![step3.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.png)  
 
 # Setup connection to Spotify
 
 To setup Spotify connection, you need to run the image in "setup mode" using this commandline and follow instruction:  
 `docker run -it --rm -v spotifybackup:/data --entrypoint pwsh domochip/spotifybackup setup.ps1`
 
-## E.g:  
+### E.g:  
 Provide Client ID and Client Secret then copy authorization URL:  
 ![setup1.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup1.png)  
 Paste authorization URL in your browser, read then accept:  
 ![setup2.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup2.png)  
 Copy the redirected url from the address bar:  
-![setup4.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup4.png)  
+![setup3.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup3.png)  
 Paste it into the setup container window (you should then receive a green result):  
-![setup5.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup5.png) 
+![setup4.png](https://github.com/Domochip/spotifybackup/raw/master/img/setup4.png) 
 
 **Resulting connection information are then stored into the `spotifybackup` docker volume**
 
@@ -69,7 +69,7 @@ services:
 * `BACKUPPREFIX`: **Optional**, (String) First part of the backup file names
 
 
-## E.g.
+### E.g.
 
 Container creation:  
 ![run1.png](https://github.com/Domochip/spotifybackup/raw/master/img/run1.png)  
