@@ -77,6 +77,9 @@ Container creation:
 Check container log:  
 ![run2.png](https://github.com/Domochip/spotifybackup/raw/master/img/run2.png)  
 
+🎉 Then 3 days later 🎉:  
+![run3.png](https://github.com/Domochip/spotifybackup/raw/master/img/run3.png)  
+
 # Restore a backup
 
 TODO
