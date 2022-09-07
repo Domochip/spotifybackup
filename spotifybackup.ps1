@@ -1,6 +1,6 @@
 Import-Module Spotishell
 
-$VersionNumber = '0.9.9'
+$VersionNumber = '1.0.0'
 
 function Write-Log {
     param (
