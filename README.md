@@ -7,12 +7,14 @@ This full backup can be used to be restored over your account or another one.
 
 You first need to create a Spotify Application.
 
-**Step1**: Go to the [Spotify for Developers](https://developer.spotify.com/dashboard/applications) Dashboard, log in and create an app  
+**Step1**: Go to the [Spotify for Developers](https://developer.spotify.com/dashboard) Dashboard and create an app:  
+ - App name : `spotifybackup`
+ - App description : `spotifybackup`
+ - Redirect URI : `http://localhost:8080/spotishell`
+
 ![step1.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.1.png) ![step1.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.2.png)  
-**Step2**: Edit settings of the app and add `http://localhost:8080/spotishell` to Redirect URIs  
+**Step2**: Collect Client ID and Secret  
 ![step2.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.1.png) ![step2.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step2.2.png)  
-**Step3**: Collect Client ID and Secret  
-![step3.png](https://github.com/Domochip/spotifybackup/raw/master/img/step3.png)  
 
 # Setup connection to Spotify
 
@@ -82,4 +84,13 @@ Check container log:
 
 # Restore a backup
 
-TODO
+To restore your Spotify Library, you need to run the image in interactive mode (using your volume):  
+`docker run -it --rm -v spotifybackup:/data --entrypoint pwsh domochip/spotifybackup`
+
+
+Then use these commands:  
+```powershell
+Import-Module Spotishell
+Restore-Library -Path '/data/SpotifyBackup-2023-05-11-01-00.json'
+Exit
+```
