@@ -10,7 +10,7 @@ You first need to create a Spotify Application.
 **Step1**: Go to the [Spotify for Developers](https://developer.spotify.com/dashboard) Dashboard and create an app:  
  - App name : `spotifybackup`
  - App description : `spotifybackup`
- - Redirect URI : `http://localhost:8080/spotishell`
+ - Redirect URI : `http://127.0.0.1:8080/spotishell`
 
 ![step1.1.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.1.png) ![step1.2.png](https://github.com/Domochip/spotifybackup/raw/master/img/step1.2.png)  
 **Step2**: Collect Client ID and Secret  
